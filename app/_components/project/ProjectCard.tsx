@@ -21,7 +21,7 @@ const ProjectCard = ({ id, title, sub_title, skills }: ProjectCardProps) => {
       <div
         id={`project-card-${id}`}
         className={cn(
-          "w-full h-fit md:h-72 p-5 md:p-6 bg-background border border-foreground/15 hover:border-foreground/0 rounded-md md:rounded-lg flex flex-col justify-between gap-6 md:gap-0 group",
+          "w-full md:w-72 h-fit md:h-72 p-5 md:p-6 bg-background border border-foreground/15 hover:border-foreground/0 rounded-md md:rounded-lg flex flex-col justify-between gap-6 md:gap-0 group",
           id % 3 === 0 && "hover:bg-blue hover:text-white",
           id % 3 === 1 && "hover:bg-green hover:text-white",
           id % 3 === 2 && "hover:bg-lime hover:text-white",

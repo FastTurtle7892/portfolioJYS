@@ -12,7 +12,8 @@ const EducationCard = ({ id, period, title, sub_title, items }: EducationCardPro
       <p
         className={cn(
           "text-sm md:text-base text-foreground/60 mb-3 sm:ml-auto",
-          "before:content-['*'] before:w-[21px] before:inline-block",
+          "before:w-[21px] before:inline-block",
+          period ? "before:content-['*']" : "before:content-['']",
           isActive ? "before:text-primary" : "before:text-foreground/60",
         )}
       >
@@ -22,7 +23,9 @@ const EducationCard = ({ id, period, title, sub_title, items }: EducationCardPro
       <div className="pl-5 sm:pl-0 sm:col-span-2 flex flex-col gap-2">
         <div className="flex flex-col gap-1">
           <p className="text-base md:text-lg font-semibold whitespace-pre-line">{title}</p>
-          <p className="text-sm md:text-base font-normal text-foreground/60 whitespace-pre-wrap">{sub_title}</p>
+          <p className="text-xs md:text-sm font-normal text-foreground/60 whitespace-nowrap [&_a]:underline [&_a]:underline-offset-2 [&_a]:hover:text-primary">
+            {parse(sub_title)}
+          </p>
         </div>
 
         {items.length > 0 && (

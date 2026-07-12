@@ -10,6 +10,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.jsdelivr.net",
       },
+      {
+        protocol: "https",
+        hostname: "www.vectorlogo.zone",
+      },
+      {
+        protocol: "https",
+        hostname: "api.iconify.design",
+      },
     ],
   },
 };

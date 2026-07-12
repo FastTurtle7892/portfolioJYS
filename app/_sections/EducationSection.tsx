@@ -17,6 +17,8 @@ export default async function EducationSection() {
   const data = await getEducations();
 
   const educations = data.filter(d => d.category === "EDUCATION");
+  const languages = data.filter(d => d.category === "LANGUAGE");
+  const swTests = data.filter(d => d.category === "SW");
   const certifications = data.filter(d => d.category === "CERTIFICATION");
   const publications = data.filter(d => d.category === "PUBLICATION");
   const trainings = data.filter(d => d.category === "TRAINING");
@@ -35,10 +37,26 @@ export default async function EducationSection() {
 
           <div className="flex flex-col md:flex-row gap-8 md:gap-6 lg:gap-10">
             <div className="flex-1 flex flex-col gap-6 md:gap-8">
-              <h3 className="text-sm font-semibold text-foreground/50 hidden md:block">어학 · 자격증</h3>
-              {certifications.map(data => (
-                <EducationCard key={`edu-card-${data.id}`} {...data} />
-              ))}
+              <div className="flex flex-col gap-3">
+                <h4 className="text-xs font-semibold text-foreground/40">어학</h4>
+                {languages.map(data => (
+                  <EducationCard key={`edu-card-${data.id}`} {...data} />
+                ))}
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <h4 className="text-xs font-semibold text-foreground/40">SW</h4>
+                {swTests.map(data => (
+                  <EducationCard key={`edu-card-${data.id}`} {...data} />
+                ))}
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <h4 className="text-xs font-semibold text-foreground/40">자격증</h4>
+                {certifications.map(data => (
+                  <EducationCard key={`edu-card-${data.id}`} {...data} />
+                ))}
+              </div>
             </div>
 
             <div className="hidden md:block w-[1px] bg-gradient-to-b from-foreground/0 via-foreground/30 to-foreground/0" />

@@ -25,21 +25,21 @@ const MainSection = () => {
       </div>
 
       <p className="text-sm md:text-base font-semibold text-primary tracking-wide mb-3">
-        Embedded Systems · Indoor Positioning · Signal Processing
+        Real-time Positioning · Data Pipeline · Digital Twin
       </p>
 
-      <h1 className="w-full p-6 md:p-8 bg-sand z-40 rounded-2xl">
+      <h1 className="w-full p-6 md:p-8 bg-sand z-40 rounded-2xl break-keep">
         안녕하세요,
         <br />
-        cm급 정밀도로 세상을 측위하는
+        현실과 가상을 데이터로 잇는
         <br />
-        임베디드 엔지니어 <em>장윤석</em>입니다.
+        엔지니어 <em>장윤석</em>입니다.
       </h1>
 
       <p className="text-center text-base md:text-lg font-normal text-gray-400 break-keep mt-6 mb-6 md:mb-8">
-        UWB 신호에서 위상을 복원해 거리 오차를 1cm 이하로 줄이고,
+        UWB 실시간 위치 인식 시스템에서 패킷 교환 횟수(11회→3회)와 거리측정 오차범위(10cm→1cm)를 개선하고,
         <br />
-        STM32·Jetson Orin 위에서 실시간으로 동작하는 시스템을 만듭니다.
+        Socket·WebSocket·MQTT·ROS2 등 다양한 통신으로 임베디드 장비와 서버 간 데이터를 안정적으로 주고받는 시스템을 만듭니다.
       </p>
     </div>
   );

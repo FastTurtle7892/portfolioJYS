@@ -7,10 +7,10 @@ import { motion, useMotionValue } from "framer-motion";
 
 import SkillItem from "./SkillItem";
 
-// 지원 직무(임베디드 소프트웨어) 핵심에 맞춰 자신 있는 순으로 차등 노출한다.
+// 지원 직무(디지털트윈 플랫폼 개발) 핵심에 맞춰 자신 있는 순으로 차등 노출한다.
 // 주력(크게) → 보조(중간) → 그 외(작게)
-const PRIMARY_SKILLS = ["C (Embedded)", "C++", "STM32", "Python"];
-const SECONDARY_SKILLS = ["FreeRTOS", "ROS 2", "Nordic nRF52840", "Qorvo DW3000", "FastAPI", "Docker"];
+const PRIMARY_SKILLS = ["C (Embedded)", "C++", "Python", "Java"];
+const SECONDARY_SKILLS = ["Spring Boot", "FastAPI", "Docker", "PostgreSQL"];
 
 const skillTier = (item: string) => (PRIMARY_SKILLS.includes(item) ? 0 : SECONDARY_SKILLS.includes(item) ? 1 : 2);
 const tierToSize = ["lg", "md", "sm"] as const;
@@ -48,10 +48,11 @@ const SkillItems = ({ skills }: SkillItemsProps) => {
     <div className="flex flex-col gap-8 items-center">
       <nav className="bg-foreground/[0.07] backdrop-blur-lg p-1.5 rounded-full flex items-center relative">
         {[
-          { name: "임베디드 / 하드웨어", value: Category.FRONTEND },
-          { name: "소프트웨어 / 프레임워크", value: Category.FRONTEND_LIBRARY },
-          { name: "알고리즘 / 프로토콜", value: Category.ENV },
-        ].map(({ name, value }) => (
+          { name: "언어", icon: "💻", value: Category.LANGUAGE },
+          { name: "프레임워크", icon: "🧩", value: Category.FRAMEWORK },
+          { name: "환경 및 도구", icon: "🛠️", value: Category.ENV_TOOL },
+          { name: "데이터/AI", icon: "🤖", value: Category.DATA_AI },
+        ].map(({ name, icon, value }) => (
           <button
             key={`nav-item-${value}`}
             className={cn(
@@ -60,7 +61,9 @@ const SkillItems = ({ skills }: SkillItemsProps) => {
             )}
             onClickCapture={e => handleCategoryClick(e, value)}
           >
-            <p className="relative z-10">{name}</p>
+            <p className="relative z-10">
+              {icon} {name}
+            </p>
           </button>
         ))}
         <motion.div

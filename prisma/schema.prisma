@@ -71,11 +71,10 @@ model education {
 }
 
 enum Category {
-  FRONTEND
-  FRONTEND_LIBRARY
-  ENV
-  DESIGN
-  ETC
+  LANGUAGE
+  FRAMEWORK
+  ENV_TOOL
+  DATA_AI
 }
 
 enum ratio {
