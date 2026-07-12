@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model experience {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(150)
+  period    String   @db.VarChar(30)
+  items     String[] @db.VarChar(255)
+  links     Json[]   @db.Json
+  is_active Boolean? @default(false)
+  sub_title String?  @db.VarChar(150)
+  index     Int      @default(0)
+  skill_ids Int[]
+  category  String?  @db.VarChar(100)
+  logo_url  String?  @db.VarChar(255)
+}
+
+model project {
+  id         Int           @id @default(autoincrement())
+  title      String        @db.VarChar(150)
+  sub_title  String        @db.VarChar(255)
+  period     String        @db.VarChar(30)
+  member     String        @db.VarChar(150)
+  skills     String[]      @db.VarChar(50)
+  links      Json[]        @db.Json
+  skill_ids  Int[]         @default([])
+  row_number Int?
+  items      ProjectItem[]
+}
+
+model ProjectItem {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(150)
+  content     String[] @db.VarChar(500)
+  projectId   Int?
+  blobUrl     String?  @db.VarChar(255)
+  row_number  Int?
+  image_ratio ratio?
+  project     project? @relation(fields: [projectId], references: [id])
+}
+
+model intro {
+  id      Int     @id @default(autoincrement())
+  title   String  @db.VarChar(100)
+  detail  String
+  blobUrl String? @db.VarChar(255)
+}
+
+model skill {
+  id       Int      @id @default(autoincrement())
+  category Category
+  items    String[] @db.VarChar(255)
+  item     String   @default("") @db.VarChar(255)
+  blobUrl  String   @default("") @db.VarChar(255)
+}
+
+model education {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(150)
+  sub_title String   @db.VarChar(255)
+  period    String   @db.VarChar(50)
+  items     String[] @db.VarChar(255)
+  category  String?  @db.VarChar(50)
+}
+
+enum Category {
+  FRONTEND
+  FRONTEND_LIBRARY
+  ENV
+  DESIGN
+  ETC
+}
+
+enum ratio {
+  PORTRAIT
+  LANDSCAPE
+  SQUARE
+}
