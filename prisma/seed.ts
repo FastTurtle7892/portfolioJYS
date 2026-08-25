@@ -311,21 +311,21 @@ async function main() {
     },
     {
       title: "Sticker - AI 코디 추천 패션 앱",
-      sub_title: "REST API 설계와 PostgreSQL 기반 마이페이지 도메인 서버 개발",
+      sub_title: "회원 프로필 관리 REST API 설계 및 PostgreSQL 기반 데이터 정합성 처리",
       period: "2026.04 ~ 2026.05",
-      member: "팀 프로젝트 (Backend · mypage 도메인 담당)",
-      techNames: ["Java", "Spring Boot", "PostgreSQL", "Docker", "Gradle"],
+      member: "팀 프로젝트 (Backend)",
+      techNames: ["Java", "Spring Boot", "PostgreSQL", "Docker", "AWS SQS"],
       links: [],
       items: [
         {
           title: "프로젝트 개요",
           content: [
-            "디지털 옷장과 AI 코디 추천을 결합한 패션 매칭 서비스. 담당 파트는 마이페이지(mypage) 도메인 — 프로필 조회·수정·회원탈퇴 REST API와 PostgreSQL 기반 데이터 정합성 처리, Docker 멀티스테이지 빌드 구성을 전담.",
+            "디지털 옷장과 AI 코디 추천을 결합한 패션 매칭 서비스. 담당 파트는 회원 프로필 조회·수정·탈퇴를 처리하는 REST API와 PostgreSQL 기반 데이터 정합성 처리.",
           ],
         },
         {
           title: "담당 역할",
-          content: ["마이페이지 도메인 REST API 설계, 회원탈퇴 시 FK 순서를 고려한 계층적 삭제 로직 구현, Docker 멀티스테이지 빌드 구성"],
+          content: ["회원 프로필·계정 관리 REST API 설계, 회원탈퇴 시 FK 순서를 고려한 계층적 삭제 로직 구현, Entity-DTO 계층 분리 설계"],
         },
         {
           title: "문제 해결 1 — REST API·DTO 설계",
@@ -344,11 +344,11 @@ async function main() {
           ],
         },
         {
-          title: "문제 해결 3 — Docker 배포 경량화",
+          title: "문제 해결 3 — 비동기 메시지 큐 기반 서버 간 통신 설계",
           content: [
-            "문제: 단일 스테이지 빌드는 빌드 도구까지 이미지에 포함돼 크기가 크고 배포가 느림",
-            "해결: Gradle 멀티스테이지 Dockerfile(builder → JRE 런타임)로 구성하고 BuildKit 캐시 마운트 적용",
-            "결과: 배포 이미지 경량화 및 빌드 시간 단축",
+            "문제: 무거운 AI 연산을 API 요청-응답 흐름에 직접 묶으면 지연·장애가 그대로 전파되는 구조적 문제를 인지, Sticker 아키텍처를 개인적으로 재구현하며 동일한 문제를 직접 검증",
+            "해결: SQS 기반 Job/Result 큐로 요청과 처리를 분리하고, 유저별 중복 요청 방지 락과 결과 중복 처리 방지(멱등성) 로직을 직접 구현",
+            "결과: 처리 서버 장애 시에도 작업이 유실되지 않고 재처리 가능한 구조를 직접 구축·검증",
           ],
         },
       ],
@@ -489,16 +489,16 @@ async function main() {
     },
     {
       title: "Sticker - AI 코디 추천 패션 앱",
-      sub_title: "팀 프로젝트 · Backend (mypage 도메인)",
+      sub_title: "팀 프로젝트 · Backend (REST API · 비동기 메시징)",
       period: "2026.04 ~ 2026.05",
       category: "PROJECT",
       is_active: false,
-      techNames: ["Java", "Spring Boot", "PostgreSQL", "Docker"],
+      techNames: ["Java", "Spring Boot", "PostgreSQL", "Docker", "AWS SQS"],
       items: [
-        "마이페이지 도메인 REST API 설계 및 구현",
+        "회원 프로필·계정 관리 REST API 설계 및 구현",
         "PostgreSQL 기반 회원탈퇴 캐스케이드 삭제 순서 설계",
         "Entity와 DTO 분리로 API 응답과 내부 스키마 독립",
-        "Gradle 멀티스테이지 Docker 빌드로 배포 이미지 경량화",
+        "SQS 기반 Job/Result 큐 설계로 AI 서버 장애 시 유실 없는 재처리 구조 구현",
       ],
     },
   ];
