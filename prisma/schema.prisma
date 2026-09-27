@@ -23,27 +23,37 @@ model experience {
 }
 
 model project {
-  id         Int           @id @default(autoincrement())
-  title      String        @db.VarChar(150)
-  sub_title  String        @db.VarChar(255)
-  period     String        @db.VarChar(30)
-  member     String        @db.VarChar(150)
-  skills     String[]      @db.VarChar(50)
-  links      Json[]        @db.Json
-  skill_ids  Int[]         @default([])
-  row_number Int?
-  items      ProjectItem[]
+  id               Int           @id @default(autoincrement())
+  title            String        @db.VarChar(150)
+  sub_title        String        @db.VarChar(255)
+  period           String        @db.VarChar(30)
+  member           String        @db.VarChar(150)
+  skills           String[]      @db.VarChar(50)
+  links            Json[]        @db.Json
+  skill_ids        Int[]         @default([])
+  row_number       Int?
+  logo_url         String?       @db.VarChar(255) // 비어있으면 제목 첫 글자 모노그램으로 대체 표시
+  preview_clip_url String?       @db.VarChar(255) // 헤더 구분선 바로 아래, intro_image_url과 나란히 보여주는 반복재생 프리뷰 (.mp4/.webm은 자동재생 루프, .webp/.gif는 정적 렌더)
+  intro_image_url  String?       @db.VarChar(255) // 헤더 구분선 바로 아래, preview_clip_url과 나란히 보여주는 구조/셋업 사진
+  card_description String?       @db.VarChar(255) // 목록 카드에서 sub_title 대신 보여줄 짧은 한 줄 설명. 비어있으면 sub_title로 폴백 (상세페이지 "프로젝트 설명"은 항상 sub_title 그대로)
+  items            ProjectItem[]
 }
 
 model ProjectItem {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(150)
-  content     String[] @db.VarChar(500)
+  id          Int             @id @default(autoincrement())
+  title       String          @db.VarChar(150)
+  content     String[]        @db.VarChar(500)
   projectId   Int?
-  blobUrl     String?  @db.VarChar(255)
+  blobUrl     String?         @db.VarChar(255)
+  blobUrl2    String?         @db.VarChar(255)
+  blobUrl3    String?         @db.VarChar(255)
+  videoUrl    String?         @db.VarChar(255)
+  group_key   String?         @db.VarChar(50)
+  imageWidthPercent Int? // blobUrl 이미지를 이 퍼센트 너비로 축소하고 가운데 정렬 (예: 80). 비어있으면 100%
   row_number  Int?
   image_ratio ratio?
-  project     project? @relation(fields: [projectId], references: [id])
+  type        ProjectItemType @default(TEXT)
+  project     project?        @relation(fields: [projectId], references: [id])
 }
 
 model intro {
@@ -81,4 +91,38 @@ enum ratio {
   PORTRAIT
   LANDSCAPE
   SQUARE
+}
+
+/// ProjectItem을 어떻게 렌더링할지 결정하는 타입.
+/// 기존 필드(title/content/blobUrl)를 타입별로 다른 의미로 재사용한다 (스키마는 최소로 확장):
+///   TEXT        — title=섹션 제목, content=본문 문단들. 기본적으로 카드형 박스로 렌더링됨.
+///                 blobUrl(선택)을 주면 박스 안 제목 아래에 이미지 1장이 추가로 표시되고,
+///                 videoUrl(선택)을 주면 박스 하단에 유튜브 재생 썸네일이 추가로 표시됨 (텍스트+사진, 텍스트+영상을 한 박스로 합칠 때 사용)
+///   GALLERY     — title=이미지 캡션(화면에 보임), blobUrl=이미지 경로
+///   COLLAPSIBLE — title=접힌 상태에서 보이는 라벨. content가 4개 또는 5개([좌측제목, 좌측설명, 우측제목, 우측설명, (선택)하단제목])면
+///                 좌/우 2단 비교 레이아웃으로 렌더링되며 blobUrl=좌측 이미지, blobUrl2=우측 이미지로 쓰임.
+///                 content가 정확히 4개(하단 제목 없음)면 헤딩 → 이미지 → 그 아래 한 줄 설명 순서로 렌더링
+///                 (사진이 먼저 보이고 사진 아래에 짧은 설명 한 문장이 붙는 형태를 원할 때 사용)
+///                 content가 5개면 헤딩 → 설명 → 이미지 순서로 렌더링되고, 좌우 비교 아래에 전체 폭 구분선 + content[4]=하단 제목 + blobUrl3=하단 전체 폭 이미지 1장이 추가로 표시됨
+///                 (좌우로 나눠 설명한 두 방식을 마지막에 하나로 합쳐서 보여줄 때 사용)
+///                 content가 7개([도입설명, 좌측제목, 좌측식, 우측제목, 우측식, 상쇄설명, 거리보정설명])면
+///                 도입부(설명 문단 + blobUrl 전체 폭 이미지) → 좌/우 2단 수식 비교(blobUrl2=좌측 이미지, blobUrl3=우측 이미지)
+///                 → 구분선 + 상쇄설명 → 구분선 + 거리보정설명 순서로 렌더링
+///                 (원리 설명 → 패킷 교환 방식 → 방향별 위상식 비교 → 상쇄 결과식 → 최종 보정식, 순서가 있는 긴 설명을 단계별로 보여줄 때 사용)
+///                 content가 4/5/7개가 아니면 기존처럼 문단(HTML 가능) 나열 + blobUrl 이미지 1장(선택)
+///   TABLE       — title=표 제목, content=각 행을 "항목|값|비고" 형식의 파이프(|) 구분 문자열로 저장
+///   VIDEO       — title=영상 아래 캡션, content[0]=유튜브 링크, blobUrl=커스텀 썸네일(비어있으면 유튜브 기본 썸네일 사용)
+///   PROBLEM     — "문제 해결" 전용 카드. content는 정확히 3개: [0]=겪은 문제, [1]=해결 방법, [2]=결과.
+///                 문장 앞에 "문제:"/"해결:"/"결과:" 라벨을 붙이지 않는다 — 컴포넌트가 레이아웃으로 라벨을 대신 보여줌
+///
+/// group_key: 같은 group_key 값을 가진 연속된 아이템들을 하나의 박스로 묶어서 렌더링한다.
+/// 그룹의 제목은 그룹 내 첫 아이템의 title을 사용하고, 나머지 아이템은 제목 없이 내용만 이어서 표시된다.
+/// (예: "프로젝트 개요" 텍스트 + 비교 사진 2장 + 드롭다운을 한 박스로 묶을 때 세 아이템 모두에 같은 group_key를 지정)
+enum ProjectItemType {
+  TEXT
+  GALLERY
+  COLLAPSIBLE
+  TABLE
+  VIDEO
+  PROBLEM
 }

@@ -3,7 +3,7 @@ import cn from "classnames";
 
 import ProjectCard from "./ProjectCard";
 
-type OmittedProject = Pick<project, "id" | "title" | "sub_title"> & {
+type OmittedProject = Pick<project, "id" | "title" | "sub_title" | "logo_url" | "card_description"> & {
   skills: skill[];
 };
 

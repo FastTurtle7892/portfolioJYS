@@ -13,9 +13,11 @@ interface ProjectCardProps {
   title: string;
   sub_title: string;
   skills: skill[];
+  logo_url?: string | null;
+  card_description?: string | null;
 }
 
-const ProjectCard = ({ id, title, sub_title, skills }: ProjectCardProps) => {
+const ProjectCard = ({ id, title, sub_title, skills, logo_url, card_description }: ProjectCardProps) => {
   return (
     <Link className="no-underline" href={`/project/${id}`} passHref scroll={false}>
       <div
@@ -28,9 +30,9 @@ const ProjectCard = ({ id, title, sub_title, skills }: ProjectCardProps) => {
         )}
       >
         <div className="text-lef">
-          <ProjectLogo id={id} label={title} className="mb-3 md:mb-4 w-10 h-10 md:w-12 md:h-12 text-lg" />
+          <ProjectLogo id={id} label={title} logoUrl={logo_url} className="mb-3 md:mb-4 w-10 h-10 md:w-12 md:h-12 text-lg" />
           <p className=" text-lg md:text-xl font-semibold md:mb-4 no-underline!important">{parse(title)}</p>
-          <p className="text-sm font-normal opacity-60 hidden md:inline-block">{parse(sub_title)}</p>
+          <p className="text-sm font-normal opacity-60 hidden md:inline-block">{parse(card_description || sub_title)}</p>
         </div>
 
         <ul className="p-0 flex gap-2 list-none flex-wrap">

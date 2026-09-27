@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "api.iconify.design",
       },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+      },
     ],
   },
 };

@@ -25,21 +25,21 @@ const MainSection = () => {
       </div>
 
       <p className="text-sm md:text-base font-semibold text-primary tracking-wide mb-3">
-        Real-time Positioning · Data Pipeline · Digital Twin
+        Diagnose · Optimize · Prove
       </p>
 
       <h1 className="w-full p-6 md:p-8 bg-sand z-40 rounded-2xl break-keep">
         안녕하세요,
         <br />
-        현실과 가상을 데이터로 잇는
+        문제의 원인을 정확히 진단하고
         <br />
-        엔지니어 <em>장윤석</em>입니다.
+        숫자로 증명하는 엔지니어 <em>장윤석</em>입니다.
       </h1>
 
       <p className="text-center text-base md:text-lg font-normal text-gray-400 break-keep mt-6 mb-6 md:mb-8">
-        UWB 실시간 위치 인식 시스템에서 패킷 교환 횟수(11회→3회)와 거리측정 오차범위(10cm→1cm)를 개선하고,
+        위치 오차 10cm→1cm · 패킷 교환 11회→3회 · API 응답 0.02초 이내
         <br />
-        Socket·WebSocket·MQTT·ROS2 등 다양한 통신으로 임베디드 장비와 서버 간 데이터를 안정적으로 주고받는 시스템을 만듭니다.
+        다양한 시스템에서 문제를 정밀하게 개선하고 그 결과를 데이터로 검증합니다.
       </p>
     </div>
   );
