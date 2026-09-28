@@ -2,6 +2,8 @@ import { Gothic_A1 } from "next/font/google";
 
 import type { Metadata } from "next";
 
+import AnalyticsOwnerFilter from "./_components/AnalyticsOwnerFilter";
+
 import "./globals.css";
 
 const inter = Gothic_A1({
@@ -36,6 +38,7 @@ export default function RootLayout(props: { children: React.ReactNode; modal: Re
         {props.children}
         {props.modal}
         <div id="modal-root" />
+        <AnalyticsOwnerFilter />
       </body>
     </html>
   );
