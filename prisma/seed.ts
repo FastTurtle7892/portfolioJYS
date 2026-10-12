@@ -37,29 +37,41 @@ async function main() {
   });
 
   // ── 기술 스택 (Skill) ──────────────────────────────────────────
-  // blobUrl: devicon/simpleicons/iconify CDN (next.config.js에 도메인 허용됨).
+  // blobUrl: public/assets/skills/*.svg (devicon / simple-icons / iconify logos에서 받아 프로젝트에 직접 포함 → 외부 CDN 의존 없음).
   // 로고가 없는 항목은 ""로 두면 SkillItem이 텍스트 폴백(앞 3글자)으로 표시함.
   const skillSeed: { category: Category; item: string; blobUrl?: string }[] = [
     // 언어
-    { category: Category.LANGUAGE, item: "C (Embedded)", blobUrl: "/assets/img/skill_c.png" },
-    { category: Category.LANGUAGE, item: "C++", blobUrl: "https://api.iconify.design/simple-icons/cplusplus.svg" },
-    { category: Category.LANGUAGE, item: "Python", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-    { category: Category.LANGUAGE, item: "Java", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-    // 프레임워크
-    { category: Category.FRAMEWORK, item: "Spring Boot", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-    { category: Category.FRAMEWORK, item: "FastAPI", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-    { category: Category.FRAMEWORK, item: "ROS 2", blobUrl: "https://api.iconify.design/logos/ros.svg" },
-    { category: Category.FRAMEWORK, item: "OpenCV", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" },
-    { category: Category.FRAMEWORK, item: "LangChain", blobUrl: "https://api.iconify.design/simple-icons/langchain.svg" },
+    { category: Category.LANGUAGE, item: "C (Embedded)", blobUrl: "/assets/skills/c.svg" },
+    { category: Category.LANGUAGE, item: "C++", blobUrl: "/assets/skills/cplusplus.svg" },
+    { category: Category.LANGUAGE, item: "Python", blobUrl: "/assets/skills/python.svg" },
+    { category: Category.LANGUAGE, item: "Java", blobUrl: "/assets/skills/java.svg" },
+    // 프레임워크/라이브러리
+    { category: Category.FRAMEWORK, item: "Spring Boot", blobUrl: "/assets/skills/springboot.svg" },
+    { category: Category.FRAMEWORK, item: "FastAPI", blobUrl: "/assets/skills/fastapi.svg" },
+    { category: Category.FRAMEWORK, item: "ROS 2", blobUrl: "/assets/skills/ros.svg" },
+    { category: Category.FRAMEWORK, item: "OpenCV", blobUrl: "/assets/skills/opencv.svg" },
+    { category: Category.FRAMEWORK, item: "LangChain", blobUrl: "/assets/skills/langchain.svg" },
+    { category: Category.FRAMEWORK, item: "LangGraph", blobUrl: "/assets/skills/langgraph.svg" },
+    { category: Category.FRAMEWORK, item: "React Native", blobUrl: "/assets/skills/reactnative.svg" },
+    { category: Category.FRAMEWORK, item: "Expo", blobUrl: "/assets/skills/expo.svg" },
     // 환경 및 도구
-    { category: Category.ENV_TOOL, item: "Docker", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-    { category: Category.ENV_TOOL, item: "MQTT", blobUrl: "https://api.iconify.design/simple-icons/mqtt.svg" },
-    { category: Category.ENV_TOOL, item: "MATLAB", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" },
-    { category: Category.ENV_TOOL, item: "Gradle", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gradle/gradle-original.svg" },
+    { category: Category.ENV_TOOL, item: "Docker", blobUrl: "/assets/skills/docker.svg" },
+    { category: Category.ENV_TOOL, item: "MQTT", blobUrl: "/assets/skills/mqtt.svg" },
+    { category: Category.ENV_TOOL, item: "MATLAB", blobUrl: "/assets/skills/matlab.svg" },
+    { category: Category.ENV_TOOL, item: "Gradle", blobUrl: "/assets/skills/gradle.svg" },
+    { category: Category.ENV_TOOL, item: "CMake", blobUrl: "/assets/skills/cmake.svg" },
+    { category: Category.ENV_TOOL, item: "Raspberry Pi", blobUrl: "/assets/skills/raspberrypi.svg" },
+    { category: Category.ENV_TOOL, item: "Traefik", blobUrl: "/assets/skills/traefik.svg" },
+    { category: Category.ENV_TOOL, item: "AWS SQS", blobUrl: "/assets/skills/aws-sqs.svg" },
+    { category: Category.ENV_TOOL, item: "AWS EC2", blobUrl: "/assets/skills/aws-ec2.svg" },
     // 데이터/AI
-    { category: Category.DATA_AI, item: "PostgreSQL", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-    { category: Category.DATA_AI, item: "MariaDB", blobUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-original.svg" },
-    { category: Category.DATA_AI, item: "Milvus", blobUrl: "https://api.iconify.design/simple-icons/milvus.svg" },
+    { category: Category.DATA_AI, item: "PostgreSQL", blobUrl: "/assets/skills/postgresql.svg" },
+    { category: Category.DATA_AI, item: "MariaDB", blobUrl: "/assets/skills/mariadb.svg" },
+    { category: Category.DATA_AI, item: "Milvus", blobUrl: "/assets/skills/milvus.svg" },
+    { category: Category.DATA_AI, item: "Redis", blobUrl: "/assets/skills/redis.svg" },
+    { category: Category.DATA_AI, item: "SQLite", blobUrl: "/assets/skills/sqlite.svg" },
+    { category: Category.DATA_AI, item: "Ollama", blobUrl: "/assets/skills/ollama.svg" },
+    { category: Category.DATA_AI, item: "Hugging Face", blobUrl: "/assets/skills/huggingface.svg" },
   ];
 
   const skillIdByName: Record<string, number> = {};
@@ -171,7 +183,7 @@ async function main() {
       period: "2024.09 ~ 2025.02",
       // 참여인원 색상은 AoA와 동일하게 인라인 style로 처리 (Tailwind 클래스는 seed.ts에선 정적 스캔이 안 됨)
       member: '5인 프로젝트 (<span style="color:#ef4444">임베디드 2</span>, MATLAB 1, 게임 애플리케이션 2)',
-      techNames: ["C (Embedded)", "ROS 2", "Python", "OpenCV"],
+      techNames: ["C (Embedded)", "Python", "ROS 2", "OpenCV", "Raspberry Pi"],
       logo_url: "/assets/img/kmu_logo.png",
       preview_clip_url: "/assets/img/phase_demo_preview.webm",
       intro_image_url: "/assets/img/phase_setup_photo.png",
@@ -380,7 +392,7 @@ async function main() {
         "현실 세계의 물리적 제약과 안전 문제 없이 JETANK 로봇팔을 학습·검증할 수 있는 크로스플랫폼 가상 시뮬레이터.",
       period: "2025.11 ~ 2025.12",
       member: "팀 프로젝트",
-      techNames: ["C++", "Docker"],
+      techNames: ["C++", "CMake", "Python"],
       logo_url: "/assets/img/robotpal_logo.png",
       preview_clip_url: "/assets/img/robotpal_demo_preview.webm",
       intro_image_url: "/assets/img/robotpal_setup_photo.png",
@@ -450,7 +462,7 @@ async function main() {
       sub_title: "하이브리드 검색(BM25 + Milvus) + LLM Judge RAG 파이프라인으로 모호한 불량 증상 자동 재분류",
       period: "2026.02 ~ 2026.04",
       member: "삼성전자 네트워크 사업부 연계 팀 프로젝트 (Frontend · Backend · AI 파트 분담)",
-      techNames: ["Python", "FastAPI", "Docker"],
+      techNames: ["Python", "FastAPI", "Milvus", "MariaDB", "LangChain", "Docker"],
       logo_url: "/assets/img/nets_logo.png",
       links: [],
       items: [
@@ -496,7 +508,7 @@ async function main() {
         "AI가 추천한 코디를 모바일 앱과 스마트미러형 세로 디스플레이로 동시에 제공하는 N-Screen 패션 서비스.",
       period: "2026.04 ~ 2026.05",
       member: "팀 프로젝트 (Backend)",
-      techNames: ["Java", "Spring Boot", "PostgreSQL", "Docker", "AWS SQS"],
+      techNames: ["Java", "Spring Boot", "PostgreSQL", "Redis", "AWS SQS", "Docker"],
       logo_url: "/assets/img/sticker_logo.png",
       preview_clip_url: "/assets/img/sticker_header_video1_app.webm|/assets/img/sticker_header_video2_nscreen.webm",
       intro_image_url: "/assets/img/sticker_result6_app_recommend.webp|/assets/img/sticker_result4_app_closet.webp",
@@ -683,7 +695,7 @@ async function main() {
       period: "2025.07 ~ 2026.06",
       category: "WORK",
       is_active: false,
-      techNames: ["C++", "Python"],
+      techNames: [],
       items: [
         "임베디드 트랙 입과 — C/리눅스 시스템·네트워크 프로그래밍, 임베디드 Firmware/GUI/IoT, 리눅스 커널 프로그래밍 학습",
         "2025.07~2026.06, 총 1,628시간 교육 과정 이수, SW역량테스트 B등급·Certificate 우수(상위 30%內) 취득",

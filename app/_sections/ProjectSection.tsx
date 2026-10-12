@@ -41,7 +41,10 @@ export default async function ProjectSection() {
         {/* 프로젝트 상세 제목 + 랩 카드 3개 + 구분선은 다른 섹션들과 동일하게
             예전 폭(max-w-screen-lg)으로 제한해 시각적으로 그대로 유지한다. */}
         <div className="w-full max-w-screen-lg mx-auto flex flex-col items-center">
-          <h2 className="section-eyebrow mb-8 md:mb-12">프로젝트 상세</h2>
+          <h2 className="section-eyebrow mb-3 md:mb-4">프로젝트 상세</h2>
+          <p className="text-sm md:text-base text-foreground/60 text-center mb-8 md:mb-12 break-keep">
+            프로젝트 카드를 누르면 구조, 문제 해결 과정, 결과까지 더 자세히 볼 수 있어요.
+          </p>
 
           <div className="flex flex-col gap-6 md:gap-8 items-center w-full">
             <h3 className="section-title mb-0">학부연구생 · 국민대학교 무선센싱연구실</h3>

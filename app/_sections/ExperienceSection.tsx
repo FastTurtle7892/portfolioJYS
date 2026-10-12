@@ -9,19 +9,28 @@ import { parsePrismaJSON } from "@/utils/parsePrisma";
 
 async function getExperience() {
   const experiences = await prisma.experience.findMany({ orderBy: { index: "asc" } });
+  const projectRows = await prisma.project.findMany({ select: { id: true, title: true, skill_ids: true } });
 
-  const allIds = Array.from(new Set(experiences.flatMap(e => e.skill_ids)));
+  // 경력사항의 프로젝트 항목은 '프로젝트 상세' 카드와 같은 기술 아이콘을 보여줘야 하므로,
+  // 해당 프로젝트를 찾아 그 프로젝트의 skill_ids를 그대로 쓴다 (기술 목록을 한 곳에서만 관리).
+  // 제목이 조금 달라도(예: "UWB 거리측정 성능 최적화" ↔ "IEEE 802.15.4z UWB 거리측정 성능 최적화") 매칭되도록 포함 관계로 비교한다.
+  const findProject = (title: string) =>
+    projectRows.find(p => p.title === title || p.title.includes(title) || title.includes(p.title));
+
+  const resolved = experiences.map(exp => {
+    const project = exp.category === "PROJECT" ? findProject(exp.title) : undefined;
+    // 활동(WORK) 항목은 기술 아이콘을 보여주지 않는다. 프로젝트 항목만 프로젝트 카드의 기술을 따른다.
+    return { exp, project, skillIds: project ? project.skill_ids : [] };
+  });
+
+  const allIds = Array.from(new Set(resolved.flatMap(r => r.skillIds)));
   const allSkills = await getSkillsByIds(allIds);
 
-  const projectRows = await prisma.project.findMany({ select: { id: true, title: true } });
-  const findProjectId = (title: string) =>
-    projectRows.find(p => p.title === title || p.title.startsWith(title) || title.startsWith(p.title))?.id;
-
-  return experiences.map(({ skill_ids, links, ...exp }) => ({
+  return resolved.map(({ exp: { skill_ids: _unused, links, ...exp }, project, skillIds }) => ({
     ...exp,
-    skills: allSkills.filter(s => skill_ids.includes(s.id)),
+    skills: allSkills.filter(s => skillIds.includes(s.id)),
     links: links.map(link => parsePrismaJSON<{ href: string; label: string }>(link)),
-    projectId: exp.category === "PROJECT" ? findProjectId(exp.title) : undefined,
+    projectId: project?.id,
   }));
 }
 
