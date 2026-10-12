@@ -20,7 +20,7 @@ const OutroSection = () => {
 
           <p className="font-semibold">Github</p>
           <Link href="https://github.com/FastTurtle7892" target="_blank" className="col-span-2">
-            <p>@FastTurtle7892</p>
+            <p>FastTurtle7892</p>
           </Link>
 
           <p className="font-semibold">ORCID</p>

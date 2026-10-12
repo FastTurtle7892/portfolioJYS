@@ -33,7 +33,7 @@ const MainSection = () => {
         <br />
         문제의 원인을 정확히 진단하고
         <br />
-        숫자로 증명하는 엔지니어 <em>장윤석</em>입니다.
+        숫자로 증명하는 엔지니어입니다.
       </h1>
 
       <p className="text-center text-base md:text-lg font-normal text-gray-400 break-keep mt-6 mb-6 md:mb-8">

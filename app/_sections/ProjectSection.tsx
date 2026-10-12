@@ -1,3 +1,5 @@
+import { MousePointer } from "react-feather";
+
 import SectionWatcher from "@/_components/SectionWatcher";
 import SlideUpInView from "@/_components/SlideUpInView";
 import ProjectCards from "@/_components/project/ProjectCards";
@@ -42,12 +44,13 @@ export default async function ProjectSection() {
             예전 폭(max-w-screen-lg)으로 제한해 시각적으로 그대로 유지한다. */}
         <div className="w-full max-w-screen-lg mx-auto flex flex-col items-center">
           <h2 className="section-eyebrow mb-3 md:mb-4">프로젝트 상세</h2>
-          <p className="text-sm md:text-base text-foreground/60 text-center mb-8 md:mb-12 break-keep">
+          <p className="inline-flex items-center justify-center gap-2 px-4 py-2 mb-8 md:mb-12 rounded-full bg-primary/10 text-primary text-sm md:text-base font-semibold text-center break-keep">
+            <MousePointer className="w-4 h-4 flex-shrink-0" />
             프로젝트 카드를 누르면 구조, 문제 해결 과정, 결과까지 더 자세히 볼 수 있어요.
           </p>
 
           <div className="flex flex-col gap-6 md:gap-8 items-center w-full">
-            <h3 className="section-title mb-0">학부연구생 · 국민대학교 무선센싱연구실</h3>
+            <h3 className="section-title mb-0">학부 연구 프로젝트 · UWB 무선 측위</h3>
             <ProjectCards projects={labProjects} />
           </div>
 

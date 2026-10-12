@@ -94,8 +94,8 @@ async function main() {
       // CSS가 생성되므로, prisma/seed.ts처럼 스캔 대상 밖의 파일에 문자열로만 있으면 실제 빌드에서 스타일이 적용되지 않는다.
       member: '3인 팀 프로젝트 (<span style="color:#ef4444">임베디드 1</span>, MATLAB 시각화 1, PM 1)',
       techNames: ["C (Embedded)", "MATLAB"],
+      logo_url: "icon:compass",
       // 헤더 구분선 바로 아래에 구조/셋업 사진 + 반복재생 데모 클립을 나란히 노출 (logo_url/preview_clip_url/intro_image_url 참고)
-      logo_url: "/assets/img/kmu_logo.png",
       preview_clip_url: "/assets/img/aoa_demo_preview.webm",
       intro_image_url: "/assets/img/aoa_setup_photo.png",
       card_description: "DS-TWR·AoA 융합으로 앵커 1개만 쓰는 실시간 2D 위치추적 시스템",
@@ -184,7 +184,7 @@ async function main() {
       // 참여인원 색상은 AoA와 동일하게 인라인 style로 처리 (Tailwind 클래스는 seed.ts에선 정적 스캔이 안 됨)
       member: '5인 프로젝트 (<span style="color:#ef4444">임베디드 2</span>, MATLAB 1, 게임 애플리케이션 2)',
       techNames: ["C (Embedded)", "Python", "ROS 2", "OpenCV", "Raspberry Pi"],
-      logo_url: "/assets/img/kmu_logo.png",
+      logo_url: "icon:activity",
       preview_clip_url: "/assets/img/phase_demo_preview.webm",
       intro_image_url: "/assets/img/phase_setup_photo.png",
       card_description: "I/Q 위상 복원으로 거리 오차 1cm 이하 달성한 ROS 2 기반 실시간 RTLS",
@@ -279,8 +279,8 @@ async function main() {
           title: "성과",
           content: [
             "전자파학회 제5회 대학생 창의설계경진대회 우수논문상(동상 🥉) 수상",
-            "장윤석, 한수민, 장병준, \"단일 채널을 활용한 1 cm 이하의 고정밀 UWB 구현 및 응용\"",
-            '<a href="https://doi.org/10.5515/KJKIEES.2025.36.8.749" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.8 (2025): 749-757 게재</a>',
+            "\"단일 채널을 활용한 1 cm 이하의 고정밀 UWB 구현 및 응용\" 제1저자로 논문 게재",
+            '<a href="https://doi.org/10.5515/KJKIEES.2025.36.8.749" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.8 (2025)</a>',
           ],
           videoUrl: "https://www.youtube.com/watch?v=zzRW9kg5rdE",
         },
@@ -292,7 +292,7 @@ async function main() {
       period: "2025.03",
       member: "제1저자",
       techNames: ["C (Embedded)", "MATLAB"],
-      logo_url: "/assets/img/kmu_logo.png",
+      logo_url: "icon:radio",
       links: [],
       items: [
         {
@@ -380,8 +380,8 @@ async function main() {
         {
           title: "성과",
           content: [
-            "장윤석, 한수민, 장병준, \"IEEE 802.15.4z UWB의 거리측정 정확도와 측정시간 최적화\"",
-            '<a href="https://doi.org/10.5515/KJKIEES.2025.36.3.274" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.3 (2025): 274-282 게재</a>',
+            "\"IEEE 802.15.4z UWB의 거리측정 정확도와 측정시간 최적화\" 제1저자로 논문 게재",
+            '<a href="https://doi.org/10.5515/KJKIEES.2025.36.3.274" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.3 (2025)</a>',
           ],
         },
       ],
@@ -698,7 +698,7 @@ async function main() {
       techNames: [],
       items: [
         "임베디드 트랙 입과 — C/리눅스 시스템·네트워크 프로그래밍, 임베디드 Firmware/GUI/IoT, 리눅스 커널 프로그래밍 학습",
-        "2025.07~2026.06, 총 1,628시간 교육 과정 이수, SW역량테스트 B등급·Certificate 우수(상위 30%內) 취득",
+        "2025.07~2026.06, 총 1,628시간 교육 과정 이수, SW역량테스트 Pro등급·Certificate 우수(상위 30%) 취득",
         "교육 기간 중 RobotPal · NETS · Sticker 프로젝트 3건 수행",
         "삼성전자 네트워크사업부 연계 특화프로젝트(NETS) 우수팀 3등 수상",
       ],
@@ -765,8 +765,8 @@ async function main() {
   await prisma.education.createMany({
     data: [
       {
-        title: "국민대학교 전자공학부 전자시스템공학전공",
-        sub_title: "학사",
+        title: "학사",
+        sub_title: "",
         period: "2019.03 - 2025.08",
         items: ["학점: 전공 4.33 / 4.5 (전체 4.27 / 4.5)"],
         category: "EDUCATION",
@@ -778,7 +778,7 @@ async function main() {
       {
         title: "IEEE 802.15.4z UWB의 거리측정 정확도와 측정시간 최적화",
         sub_title:
-          '<a href="https://www.jkiees.org/archive/view_article?pid=jkiees-36-3-274" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.3 (2025): 274-282</a>',
+          '<a href="https://www.jkiees.org/archive/view_article?pid=jkiees-36-3-274" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.3 (2025)</a>',
         period: "2025.03",
         items: [],
         category: "PUBLICATION",
@@ -786,7 +786,7 @@ async function main() {
       {
         title: "단일 채널을 활용한 1cm 이하의 고정밀 UWB 구현 및 응용",
         sub_title:
-          '<a href="https://www.jkiees.org/archive/view_article?pid=jkiees-36-8-749" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.8 (2025): 749-757</a>',
+          '<a href="https://www.jkiees.org/archive/view_article?pid=jkiees-36-8-749" target="_blank" rel="noopener noreferrer">한국전자파학회논문지 36.8 (2025)</a>',
         period: "2025.08",
         items: [],
         category: "PUBLICATION",
